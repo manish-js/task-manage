@@ -1,0 +1,22 @@
+.grid-container {
+  width: 100%;
+  overflow: auto;
+}
+.grid-container-height {
+  height: 450px !important;
+}
+:host ::ng-deep .mat-table {
+  min-width: 100%;
+}
+
+:host ::ng-deep .mat-cell {
+  border: 1px solid #f5f5f5 !important;
+  font-size: 10px !important;
+  text-align: center !important;
+}
+
+:host ::ng-deep .mat-header-cell {
+  border: 1px solid #f5f5f5 !important;
+  font-size: 11px !important;
+  text-align: center !important;
+}

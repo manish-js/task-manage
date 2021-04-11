@@ -1,0 +1,75 @@
+<div
+  class="grid-container grid-container-height custom-top-border shadow tasks-container bg-white"
+  cdkDropListGroup
+>
+  <input
+    matInput
+    [formControl]="search"
+    name="search"
+    class="form-control m-3 p-3 w-75"
+    placeholder="Search task"
+  />
+
+  <mat-selection-list
+    #tasks
+    [multiple]="false"
+    class="small task-list"
+    cdkDropList
+    [cdkDropListData]="tasks"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <mat-list-option
+      class="small border task-box move"
+      *ngFor="let task of $search | async"
+      [value]="task.id"
+      [cdkDragData]="task"
+      cdkDrag
+      cdkDragLockAxis="y"
+    >
+      <div class="row small">
+        <div class="col-lg-10 small">
+          <h3>{{ task.message }}</h3>
+          <span>Due Date: {{ task.due_date || "-" }}</span> |
+          <span>Assigned To: {{ task.assigned_name || "-" }}</span> |
+          <span>Priority: {{ task.priority || "-" }}</span>
+        </div>
+        <div class="col-lg-2 align-right">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Delete task"
+            (click)="updateSelectedTask(task)"
+            class="pointer"
+            >edit</mat-icon
+          >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Delete task"
+            (click)="confirmBeforeDelete(confirmDelModal, task)"
+            class="pointer"
+            >delete_forever</mat-icon
+          >
+        </div>
+      </div>
+    </mat-list-option>
+  </mat-selection-list>
+</div>
+
+<ng-template #confirmDelModal>
+  <div class="modal-body text-center custom-top-border">
+    <h3 class="text-dark">{{ warningMsg }}</h3>
+    <button
+      type="button"
+      class="btn btn-success btn-sm small mr-2"
+      (click)="deleteSelectedTask()"
+    >
+      Yes
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger btn-sm small"
+      (click)="modalRef.hide()"
+    >
+      No
+    </button>
+  </div>
+</ng-template>

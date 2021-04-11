@@ -1,0 +1,74 @@
+<div class="grid-container grid-container-height custom-top-border shadow">
+    <mat-paginator class="pr-0 pl-0 pt-1 pb-0 small" 
+    [hidden]="!dataSource.data.length" [pageSize]="25" [pageSizeOptions]="[2, 5, 10, 25, 50]">
+    </mat-paginator>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Tasks Id -->
+    <ng-container matColumnDef="id">
+        <th class="p-2" mat-header-cell *matHeaderCellDef>Task ID</th>
+        <td class="p-2" mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <!-- Message -->
+    <ng-container matColumnDef="message">
+        <th class="p-2" mat-header-cell *matHeaderCellDef>Message</th>
+        <td class="p-2" mat-cell *matCellDef="let element">{{ element.message }}</td>
+    </ng-container>
+
+    <!-- Assigned User ID -->
+    <ng-container matColumnDef="assigned_to">
+        <th class="p-2" [style.display]="'none'" mat-header-cell *matHeaderCellDef>Assigned User ID</th>
+        <td class="p-2" [style.display]="'none'" mat-cell *matCellDef="let element">
+            {{ element.assigned_to || '-' }}</td>
+    </ng-container>
+
+    <!-- Assigned User Name -->
+    <ng-container matColumnDef="assigned_name">
+        <th class="p-2" mat-header-cell *matHeaderCellDef>Assigned User</th>
+        <td class="p-2" mat-cell *matCellDef="let element">{{ element.assigned_name || '-' }}</td>
+    </ng-container>
+
+    <!-- created_on -->
+    <ng-container matColumnDef="created_on">
+        <th class="p-2" mat-header-cell *matHeaderCellDef>Creatd On</th>
+        <td class="p-2" mat-cell *matCellDef="let element">{{ element.created_on || '-' }}</td>
+    </ng-container>
+
+    <!-- Due Date -->
+    <ng-container matColumnDef="due_date">
+        <th class="p-2" mat-header-cell *matHeaderCellDef>Due Date</th>
+        <td class="p-2" mat-cell *matCellDef="let element">{{ element.due_date || '-' }}</td>
+    </ng-container>
+
+    <!-- priority -->
+    <ng-container matColumnDef="priority">
+        <th class="p-2" mat-header-cell *matHeaderCellDef>Priority</th>
+        <td class="p-2" mat-cell *matCellDef="let element">{{ element.priority || '-' }}</td>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+        <th class="p-2" mat-header-cell *matHeaderCellDef>Actions</th>
+        <td class="p-2" mat-cell *matCellDef="let element">
+            <mat-icon aria-hidden="false" aria-label="Delete task"
+            (click)="emitUpdate(element)"
+            class="pointer">edit</mat-icon>
+            <mat-icon aria-hidden="false" aria-label="Delete task"
+            (click)="confirmBeforeDelete(confirmDelModal, element)"
+            class="pointer">delete_forever</mat-icon>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="tasksListGridColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: tasksListGridColumns"
+    ></tr>
+    </table>
+</div>
+
+<ng-template #confirmDelModal>
+    <div class="modal-body text-center custom-top-border">
+      <h3 class="text-dark">{{warningMsg}}</h3>
+      <button type="button" class="btn btn-success btn-sm small mr-2" (click)="deleteSelectedTask()">Yes</button>
+      <button type="button" class="btn btn-danger btn-sm small" (click)="modalRef.hide()">No</button>
+    </div>
+  </ng-template>

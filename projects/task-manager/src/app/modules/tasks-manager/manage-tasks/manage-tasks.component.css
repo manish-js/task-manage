@@ -1,0 +1,31 @@
+:host ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: white !important;
+    border: 1px solid #ced4da !important;
+    height: 38px;
+    border-radius: 2px !important;
+    padding: 0.2em .25em 0 .75em !important;
+}
+
+:host ::ng-deep .mat-form-field-appearance-fill .mat-form-field-underline::before {
+    background-color:white !important;
+    border-bottom: 1px solid #ced4da !important;
+}
+
+:host ::ng-deep .mat-form-field-appearance-fill:hover .mat-form-field-underline:hover {
+    background-color:white !important;
+    border-bottom: 1px solid #ced4da !important;
+}
+
+:host ::ng-deep .form-control {
+    font-size: 12px;
+    line-height: 1 !important;
+}
+
+.text-area-height {
+    height: 80px;
+    max-height: 100px;
+}
+
+.form-box {
+    max-height: 430px;
+}

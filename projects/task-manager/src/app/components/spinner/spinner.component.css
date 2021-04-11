@@ -1,0 +1,42 @@
+@keyframes bouncing {
+  0% {
+    top: 35%;
+  }
+  100% {
+    top: 30%;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.page-overlay-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  z-index: 1009;
+  background: #023047;
+  opacity: 0.8;
+}
+
+.dz-logo-spinner {
+    width: 10%;
+    height: 10%;
+    position: fixed;
+    top: 40%;
+    left: calc(50% - 10%);
+    z-index: 100;
+    background-image: url(../../../assets/devza_logo.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    animation: bouncing 0.4s cubic-bezier(0.1, 0.25, 0.1, 1) 0s infinite
+        alternate both;
+}

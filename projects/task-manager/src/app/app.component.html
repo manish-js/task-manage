@@ -1,0 +1,29 @@
+<!-- Toolbar -->
+<div class="container-fluid p-4">
+    <!-- brand display -->
+    <app-brand brandImgSrc="./assets/devza_logo.png"></app-brand>
+
+    <ng-container *ngIf="toShowTaskPage; then taskPage; else featureMsg">
+    </ng-container>
+    <ng-template #taskPage>
+      <div class="mt-2">
+        <router-outlet></router-outlet>
+      </div>
+    </ng-template>
+
+    <ng-template #featureMsg>
+      <section
+        class="d-flex justify-content-center flex-column align-items-center feature-message-wrapper"
+      >
+        <h1 class="font-weight-bold">Task Manager</h1>
+        <h3 class="bg-light p-2 text-dark small font-weight-bold">
+          Web portal to create | manage | view tasks and assign to user
+        </h3>
+        <button class="btn btn-bg text-white" (click)="routeToManageTask()">
+          Click to start!
+        </button>
+      </section>
+    </ng-template>
+  </div>
+
+<app-spinner></app-spinner>

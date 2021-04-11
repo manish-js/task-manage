@@ -1,0 +1,109 @@
+<form [formGroup]="maintainTaskForm" (ngSubmit)="manageTask()">
+  <div class="row">
+    <div class="col-lg-3 p-3 bg-white custom-top-border text-dark ">
+      <div class="row">
+        <!-- Task Title -->
+        <div class="form-group col-12">
+          <label class="label label-primary small font-weight-bold" for="message">Task*</label>
+          <textarea
+            class="form-control text-area-height small"
+            automationid="message"
+            id="message"
+            name="message"
+            formControlName="message"
+            rows="2"
+            [(ngModel)]="selectedTask.message"
+          ></textarea>
+        </div>
+
+        <!-- date -->
+        <div class="col-12">
+          <label class="label label-primary small font-weight-bold" for="message"
+            >Due Date*</label
+          >
+          <input
+            type="text"
+            placeholder="Due Date"
+            class="form-control small"
+            formControlName="due_date"
+            bsDatepicker
+            [(ngModel)]="selectedTask.due_date"
+            [bsConfig]="{dateInputFormat: 'YYYY-MM-DD'}"
+          />
+        </div>
+
+        <!--priority-->
+        <div class="col-12 mt-2">
+          <label class="label label-primary small font-weight-bold" for="priority"
+            >Priority*</label
+          >
+          <input
+            type="number"
+            class="form-control small"
+            name="priority"
+            [(ngModel)]="selectedTask.priority"
+            formControlName="priority"
+          />
+        </div>
+
+        <!-- Assign to User -->
+        <div class="col-12 mt-2">
+          <label
+            class="label label-primary small font-weight-bold small"
+            for="assigned_to"
+            >Assign to User</label
+          ><br/>
+          <mat-form-field appearance="fill">
+            <mat-select formControlName="assigned_to" class="text-dark" 
+            [(ngModel)]="selectedTask.assigned_to">
+              <mat-option *ngFor="let user of users" [value]="user.id">
+                {{ user.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12">
+          <div class="d-flex flex-row-reverse mt-1 pt-1">            
+            <button type="buton" class="btn btn-sm btn-danger text-white" > Reset </button>
+            <button type="submit" class="btn btn-sm btn-bg text-white d-flex align-right mr-2" 
+            [disabled]="(!maintainTaskForm.valid)"> 
+              {{selectedTask.id ? 'Update' : 'Create'}}
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <div class="row">
+        <div class="col-12">
+          <button type="button" class="btn btn-sm"
+          [ngClass] = "{
+            'bg-light text-dark': isGridView,
+            'bg-dark text-white': !isGridView
+          }" (click)="toggleView(true)">
+            <mat-icon aria-hidden="false" aria-label="grid View"class="pointer">grid_on</mat-icon>
+           </button>
+          <button type="button" class="btn btn-sm ml-2"
+           (click)="toggleView(false)" [ngClass] = "{
+            'bg-light text-dark': !isGridView,
+            'bg-dark text-white': isGridView
+          }">
+            <mat-icon aria-hidden="false" aria-label="List View"class="pointer"
+            >menu</mat-icon>
+          </button>
+        </div>
+      </div>
+        <div class="mt-2" [hidden]="!isGridView">
+          <app-task-grid #taskGrid (deleteTask)="deleteTask($event)"
+          (updateTask)="updateTask($event)"></app-task-grid>
+        </div>
+
+        <div class="mt-2" [hidden]="isGridView">
+          <app-tasks-list #taskList (deleteTask)="deleteTask($event)"
+        (updateTask)="updateTask($event)"></app-tasks-list>
+        </div>
+    </div>
+  </div>
+</form>

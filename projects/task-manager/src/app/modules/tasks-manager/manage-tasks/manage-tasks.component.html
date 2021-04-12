@@ -61,11 +61,12 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+          <span (click)="showUsers(userModal)" class="small pointer ml-4 font-weight-bold"> 
+            <mat-icon class="pointer" title="Show All Users">group</mat-icon></span>
         </div>
 
         <div class="col-12">
-          <div class="d-flex flex-row-reverse mt-1 pt-1">            
-            <button type="buton" class="btn btn-sm btn-danger text-white" > Reset </button>
+          <div class="d-flex flex-row-reverse mt-1 pt-1">
             <button type="submit" class="btn btn-sm btn-bg text-white d-flex align-right mr-2" 
             [disabled]="(!maintainTaskForm.valid)"> 
               {{selectedTask.id ? 'Update' : 'Create'}}
@@ -107,3 +108,21 @@
     </div>
   </div>
 </form>
+
+<ng-template #userModal>
+  <div class="d-flex flex-row-reverse">
+    <mat-icon (click)="modalRef.hide()" class="text-dark">close</mat-icon>
+  </div>
+  <div class="row p-2">
+    <div class="col-3 m-2 p-2 pointer" *ngFor="let user of users">
+      <mat-card class="example-card" (click)="selectUser(user.id)" title="Click user to select">
+        <mat-card-header>
+          <mat-card-title>{{user.name || 'User'}}</mat-card-title>
+          <mat-card-subtitle>User Id - {{user.id || '-'}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="user.picture" alt="Photo of user.name">
+      </mat-card>
+    </div>
+  </div>
+
+</ng-template>

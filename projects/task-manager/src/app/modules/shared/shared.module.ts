@@ -8,16 +8,17 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule, BsDatepickerModule.forRoot(), MatSelectModule,
-    MatTableModule, MatPaginatorModule, MatIconModule, MatListModule, DragDropModule
+    MatTableModule, MatPaginatorModule, MatIconModule, MatListModule, DragDropModule, MatCardModule
   ],
   exports: [
     CommonModule, BsDatepickerModule, MatSelectModule,
-    MatTableModule, MatPaginatorModule, MatIconModule, MatListModule, DragDropModule
+    MatTableModule, MatPaginatorModule, MatIconModule, MatListModule, DragDropModule, MatCardModule
   ]
 })
 export class SharedModule { }

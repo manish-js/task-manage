@@ -1,10 +1,11 @@
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { TasksListComponent } from './../tasks-list/tasks-list.component';
 import { UnsubscriberService } from './../../../core/services/unsubscriber.service';
 import { TaskGridComponent } from './../task-grid/task-grid.component';
 import { DateFormattingService } from './../../../core/services/date-formatting.service';
 import { TasksInterface } from './../../../interfaces/tasks.interface';
 import { SpinnerService } from './../../../components/spinner/spinner.service';
-import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsDatepickerDirective } from 'ngx-bootstrap/datepicker';
 import { UserService } from './../users.service';
@@ -26,6 +27,7 @@ export class ManageTasksComponent implements OnInit, OnDestroy{
   users: Users[] = [] as Users[];
   selectedTask: TasksInterface = {} as TasksInterface;
   isGridView: boolean;
+  modalRef: BsModalRef;
 
   @ViewChild(BsDatepickerDirective, { static: false }) datepicker: BsDatepickerDirective;
   @ViewChild('taskGrid') taskGrid: TaskGridComponent;
@@ -34,6 +36,7 @@ export class ManageTasksComponent implements OnInit, OnDestroy{
   constructor(
     private userService: UserService,
     private taskService: TaskManagerService,
+    private modalService: BsModalService,
     private dateService: DateFormattingService,
     private unsubscribeService: UnsubscriberService
   ) {
@@ -91,6 +94,15 @@ export class ManageTasksComponent implements OnInit, OnDestroy{
       priority: new FormControl(null),
       assigned_to: new FormControl(null)
     });
+  }
+
+  /**
+   * Select user
+   * @param userId: number
+   */
+  selectUser(userId: number): void {
+    this.modalRef.hide();
+    this.selectedTask.assigned_to = userId;
   }
 
   /**
@@ -165,6 +177,18 @@ export class ManageTasksComponent implements OnInit, OnDestroy{
       priority: this.getFormFieldValue('priority'),
       assigned_to: this.getFormFieldValue('assigned_to')
     };
+  }
+
+  /**
+   * Showing Modal to display all users
+   */
+   showUsers(confirmDelModal: TemplateRef<any>): void {
+    this.modalRef = this.modalService.show(confirmDelModal, {
+      backdrop: 'static',
+      keyboard: false,
+      class: 'modal-lg'
+    }
+    );
   }
 
   /**

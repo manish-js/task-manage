@@ -1,8 +1,6 @@
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { UnsubscriberService } from './../../../core/services/unsubscriber.service';
 import { TaskManagerService } from './../task-manager.service';
-import { Component, EventEmitter, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { TasksInterface } from '../../../interfaces/tasks.interface';
 import { MatPaginator } from '@angular/material/paginator';
@@ -38,7 +36,6 @@ export class TaskGridComponent implements OnInit {
 
   constructor(
     private taskService: TaskManagerService,
-    private unsubscribeService: UnsubscriberService,
     private modalService: BsModalService,
   ) {
     this.warningMsg = 'Are you sure?';
@@ -85,8 +82,7 @@ export class TaskGridComponent implements OnInit {
   }
 
   /**
-   * Method to deselect
-   *  Bussiness Unit
+   * Asking user confirmation before delete
    */
   confirmBeforeDelete(confirmDelModal: TemplateRef<any>, row: TasksInterface): void {
     this.selectedTask = row;

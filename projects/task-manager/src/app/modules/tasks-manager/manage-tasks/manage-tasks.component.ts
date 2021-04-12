@@ -106,6 +106,13 @@ export class ManageTasksComponent implements OnInit, OnDestroy{
   }
 
   /**
+   * Resetting Form
+   */
+  resetForm(): void {
+    this.maintainTaskForm.reset();
+  }
+
+  /**
    * Route to proper action based on create and update request
    */
   manageTask(): void {

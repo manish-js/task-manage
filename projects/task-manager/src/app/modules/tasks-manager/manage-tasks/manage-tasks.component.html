@@ -66,7 +66,8 @@
         </div>
 
         <div class="col-12">
-          <div class="d-flex flex-row-reverse mt-1 pt-1">
+          <div class="d-flex flex-row-reverse mt-1 pt-1">            
+            <button type="button" class="btn btn-sm btn-danger text-white" (click)="resetForm()" > Reset </button>
             <button type="submit" class="btn btn-sm btn-bg text-white d-flex align-right mr-2" 
             [disabled]="(!maintainTaskForm.valid)"> 
               {{selectedTask.id ? 'Update' : 'Create'}}

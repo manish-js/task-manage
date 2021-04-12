@@ -1,1 +1,11 @@
-<p>users works!</p>
+<div class="row p-2">
+    <div class="col-3 m-2 p-2 pointer" *ngFor="let user of users">
+      <mat-card class="example-card" (click)="emitSelectUserEvent(user.id)" title="Click user to select">
+        <mat-card-header>
+          <mat-card-title>{{user.name || 'User'}}</mat-card-title>
+          <mat-card-subtitle>User Id - {{user.id || '-'}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="user.picture" alt="Photo of user.name">
+      </mat-card>
+    </div>
+  </div>
